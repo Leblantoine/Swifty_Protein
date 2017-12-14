@@ -15,6 +15,8 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var proteinView: SCNView!
     var scene: SCNScene!
     var cameraNode: SCNNode!
+    @IBOutlet weak var atom: UILabel!
+    @IBOutlet weak var atomName: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,18 +35,20 @@ class DetailsViewController: UIViewController {
         cameraNode.position = SCNVector3(100.0, 500.0, 0.0)
         
 
+        atom.isHidden = true
+        atomName.isHidden = true
         createAtoms()
         // Do any additional setup after loading the view.
     }
     
     func createAtoms() {
-        if let li = ligand {
-            for atom in li.atoms {
-                print("Add atom \(atom.id)")
+        if let l = ligand {
+            for atom in l.atoms {
                 let object: SCNGeometry = SCNSphere(radius: 1)
-                object.materials.first?.diffuse.contents = UIColor.blue
+                object.materials.first?.diffuse.contents = atom.getColor()
                 let geometryNode = SCNNode(geometry: object)
                 geometryNode.position = SCNVector3(atom.x, atom.y, atom.z)
+                geometryNode.name = atom.name
                 scene.rootNode.addChildNode(geometryNode)
             }
         }
@@ -53,6 +57,17 @@ class DetailsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let location = touch.location(in: proteinView)
+            if let hitObject = proteinView.hitTest(location, options: nil).first {
+                atomName.text = hitObject.node.name
+                atom.isHidden = false
+                atomName.isHidden = false
+            }
+        }
     }
     
 

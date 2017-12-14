@@ -154,19 +154,39 @@
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vKb-W2-8sp">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </sceneKitView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Atom:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtY-rV-U81">
+                                <rect key="frame" x="13" y="626" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1KM-6B-4Iv">
+                                <rect key="frame" x="66" y="626" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="DtY-rV-U81" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ipu-WG-3ib" secondAttribute="leading" constant="13" id="0Iz-fo-obz"/>
+                            <constraint firstItem="1KM-6B-4Iv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DtY-rV-U81" secondAttribute="trailing" constant="8" symbolic="YES" id="3yu-2S-Hgh"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="centerX" secondItem="IRR-E7-yDB" secondAttribute="centerX" id="65r-9P-bCi"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="leading" secondItem="Ipu-WG-3ib" secondAttribute="leading" id="BBj-5i-gEE"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="bottom" secondItem="IRR-E7-yDB" secondAttribute="bottom" id="UxX-de-c16"/>
                             <constraint firstItem="IRR-E7-yDB" firstAttribute="trailing" secondItem="vKb-W2-8sp" secondAttribute="trailing" id="ZmE-NG-1Za"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="centerY" secondItem="IRR-E7-yDB" secondAttribute="centerY" id="aiy-5Y-3g6"/>
+                            <constraint firstItem="vKb-W2-8sp" firstAttribute="leading" secondItem="1KM-6B-4Iv" secondAttribute="trailing" constant="-111" id="c4g-Pn-luI"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="leading" secondItem="IRR-E7-yDB" secondAttribute="leading" id="jLK-d6-2so"/>
+                            <constraint firstItem="1KM-6B-4Iv" firstAttribute="top" secondItem="vKb-W2-8sp" secondAttribute="bottom" constant="-41" id="lC4-Sq-WAV"/>
+                            <constraint firstItem="DtY-rV-U81" firstAttribute="top" secondItem="vKb-W2-8sp" secondAttribute="bottom" constant="-41" id="nY5-Hd-eq4"/>
+                            <constraint firstItem="vKb-W2-8sp" firstAttribute="leading" secondItem="DtY-rV-U81" secondAttribute="trailing" constant="-58" id="yhC-1M-cdM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IRR-E7-yDB"/>
                     </view>
                     <connections>
+                        <outlet property="atom" destination="DtY-rV-U81" id="R0g-ar-Fcm"/>
+                        <outlet property="atomName" destination="1KM-6B-4Iv" id="M1F-tb-uVe"/>
                         <outlet property="proteinView" destination="vKb-W2-8sp" id="k17-8d-hNb"/>
                     </connections>
                 </viewController>

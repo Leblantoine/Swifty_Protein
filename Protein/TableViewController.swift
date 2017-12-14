@@ -79,41 +79,44 @@ class TableViewController: UITableViewController {
             downloadLigand(at: indexPath.row)
         }
         tableView.reloadData()
-        performSegue(withIdentifier: "showDetails", sender: self)
+        performSegue(withIdentifier: "showDetails", sender: indexPath)
     }
     
     // MARK: - Download
     
     func downloadLigand(at index: Int) {
         var name: String
-        print("DOWNLOAD")
         if isFiltering() {
-            print("IS FILTERING")
             name = filteredLigands[index].name
         } else {
-            print("IS NOT FILTERING")
             name = ligands[index].name
         }
-        print("name =", name)
         
-        if let url = URL(string: "https://files.rcsb.org/ligands/download/\(name).cif") {
-            if let data = try? String(contentsOf: url, encoding: .utf8) {
-                
-                let ligand = parseLigand(file: data, for: name)
-                if isFiltering() {
-                    filteredLigands[index] = ligand
-                    if let indexLigand = ligands.index(where: {$0.name == ligand.name}) {
-                        ligands[indexLigand] = ligand
-                    }
-                } else {
-                    ligands[index] = ligand
-                }
-                
-            } else {
-                print("Download: no data reached")
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        guard let url = URL(string: "https://files.rcsb.org/ligands/download/\(name).cif"), let data = try? String(contentsOf: url, encoding: .utf8)
+        else {
+            print("Download: no data reached")
+            
+            let alert = UIAlertController(title: "Download failed", message: "Ligand '\(name)' hos not been downloaded", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
+            return
+        }
+            
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        
+        let ligand = parseLigand(file: data, for: name)
+        if isFiltering() {
+            filteredLigands[index] = ligand
+            if let indexLigand = ligands.index(where: {$0.name == ligand.name}) {
+                ligands[indexLigand] = ligand
             }
-        } else  {
-            print("Download: URL not found")
+        } else {
+            ligands[index] = ligand
         }
     }
     
@@ -141,7 +144,7 @@ class TableViewController: UITableViewController {
                     let components = line.components(separatedBy: " ").filter{ !$0.isEmpty }
                     let id = components[1]
                     let name = components[3]
-                    if let x = Float(components[9]), let y = Float(components[10]), let z = Float(components[11]) {
+                    if let x = Float(components[12]), let y = Float(components[13]), let z = Float(components[14]) {
                         let atom = Atom(id: id, name: name, x: x, y: y, z: z)
                         ligand.atoms.append(atom)
                     }
@@ -170,11 +173,11 @@ class TableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "showDetails", let destination = segue.destination as? DetailsViewController {
-            if let indexPath = tableView.indexPathForSelectedRow {
+            if let index = sender as? IndexPath {
                 if isFiltering() {
-                    destination.ligand = filteredLigands[indexPath.row]
+                    destination.ligand = filteredLigands[index.row]
                 } else {
-                    destination.ligand = ligands[indexPath.row]
+                    destination.ligand = ligands[index.row]
                 }
             }
         }
