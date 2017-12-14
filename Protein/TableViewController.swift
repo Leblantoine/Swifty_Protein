@@ -16,8 +16,10 @@ class TableViewController: UITableViewController {
     var searchController: UISearchController!
     
     @IBAction func takeSnap(_ sender: Any) {
-        var shareController = SharingController()
-        shareController.takeScreenshot(viewSnap: self.view, vc: self)
+        let shareController = SharingController()
+        if (shareController.takeScreenshot(viewSnap: self.view, vc: self) == false) {
+            print ("Error")
+        }
     }
     
     override func viewDidLoad() {
