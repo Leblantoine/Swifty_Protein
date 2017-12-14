@@ -11,20 +11,31 @@ import SceneKit
 
 class DetailsViewController: UIViewController {
 
-    var ligand: Ligand?
+    var ligand: Ligand!
     @IBOutlet weak var proteinView: SCNView!
     var scene: SCNScene!
     var cameraNode: SCNNode!
     @IBOutlet weak var atom: UILabel!
     @IBOutlet weak var atomName: UILabel!
     
+
+    @IBAction func switched(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            createBallStickModel()
+        case 1:
+            createBallsModel()
+        default:
+            break
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         proteinView.allowsCameraControl = true
         proteinView.autoenablesDefaultLighting = true
-        proteinView.backgroundColor = UIColor.white
-
         
         scene = SCNScene()
         proteinView.scene = scene
@@ -32,25 +43,56 @@ class DetailsViewController: UIViewController {
         
         cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(100.0, 500.0, 0.0)
         
-
         atom.isHidden = true
         atomName.isHidden = true
-        createAtoms()
+        createBallStickModel()
         // Do any additional setup after loading the view.
     }
     
-    func createAtoms() {
-        if let l = ligand {
-            for atom in l.atoms {
-                let object: SCNGeometry = SCNSphere(radius: 1)
-                object.materials.first?.diffuse.contents = atom.getColor()
-                let geometryNode = SCNNode(geometry: object)
-                geometryNode.position = SCNVector3(atom.x, atom.y, atom.z)
-                geometryNode.name = atom.name
-                scene.rootNode.addChildNode(geometryNode)
-            }
+    func createBallsModel() {
+        clearModel()
+        for atom in ligand.atoms {
+            let object: SCNGeometry = SCNSphere(radius: 1)
+            object.materials.first?.diffuse.contents = atom.getColor()
+            let geometryNode = SCNNode(geometry: object)
+            geometryNode.position = SCNVector3(atom.x, atom.y, atom.z)
+            geometryNode.name = atom.name
+            scene.rootNode.addChildNode(geometryNode)
+        }
+    }
+    
+    func createBallStickModel() {
+        clearModel()
+        for atom in ligand.atoms {
+            // Create atoms
+            let object: SCNGeometry = SCNSphere(radius: 0.2)
+            object.materials.first?.diffuse.contents = atom.getColor()
+            let geometryNode = SCNNode(geometry: object)
+            geometryNode.position = SCNVector3(atom.x, atom.y, atom.z)
+            geometryNode.name = atom.name
+            scene.rootNode.addChildNode(geometryNode)
+            // Create sticks
+            
+        }
+    }
+    
+    func createStick() {
+        
+    }
+    
+    func clearModel() {
+        for node in scene.rootNode.childNodes {
+            node.removeFromParentNode()
+        }
+    }
+
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        proteinView.defaultCameraController.stopInertia()
+        for node in scene.rootNode.childNodes {
+            node.removeFromParentNode()
         }
     }
 
