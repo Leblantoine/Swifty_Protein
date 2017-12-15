@@ -9,108 +9,81 @@
 import UIKit
 import LocalAuthentication
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController {
 
-    let context = LAContext()
-    @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var password: UITextField!
-    
+    let reason = NSLocalizedString("Authentication 🔐", comment: "authReason")
+    var errorPointer:NSError?
     var ligands: [Ligand] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        username.delegate = self
-        password.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true);
-        biometricAuth()
     }
 
-    // MARK: Regular Auth
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.tag == 0, let nextTextField = textField.superview?.viewWithTag(1) as? UITextField {
-            nextTextField.becomeFirstResponder()
-        } else if textField.tag == 1 {
-            resignFirstResponder()
-            regularAuth()
-        }
-        return true
+    @IBAction func LogMe(_ sender: Any) {
+        touchIDAuthentication()
     }
     
-    @IBAction func touchLogin(_ sender: UIButton) {
-        regularAuth()
-    }
-    
-    func regularAuth() {
-        if let username = username.text, let password = password.text, username == "antoine" && password == "antoine" {
-            print("Auth: Successful regular authentication")
-            getLigands()
-            self.performSegue(withIdentifier: "showTableView", sender: self)
-        } else {
-            print("Auth: Bad regular authentication")
-            let alert = UIAlertController(title: "Authentication failed", message: "Please try again", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    // MARK: Biometric Auth
-    
-    @IBAction func touchFingerPrint(_ sender: UIButton) {
-        biometricAuth()
-    }
-    
-    func canEvaluatePolicy() -> Bool {
-        return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
-    }
-    
-    func biometricAuth() {
-        // Disable "Enter password" when TouchID fail the first time
-        context.localizedFallbackTitle = ""
+    func touchIDAuthentication() {
         
-        if canEvaluatePolicy() {
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "We need your TouchID", reply: { (wasSuccessful, error) in
-                if wasSuccessful {
-                    print("Auth: Successful biometric authentication")
-                    self.getLigands()
-                    self.performSegue(withIdentifier: "showTableView", sender: self)
-                } else {
-                    print("Auth: Bad biometric authentication")
-                    let alert = UIAlertController(title: "Authentication failed", message: "Please try again", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            })
-        } else {
-            let alert = UIAlertController(title: "Biometric authentication are not enabled", message: "Would you like to activate it ?", preferredStyle: .alert)
+        //1
+        let context = LAContext()
+        
+        //2
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &errorPointer) {
 
-            let enableAction = UIAlertAction(title: "Enable it", style: .default, handler: { (_) in
-                print("Auth: Enable biometrics authentication")
-                guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
-                    return
-                }
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        print("Auth: Settings opened")
-                    })
+            //3
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason, reply: { (success, error) in
+                if success {
+                    self.successGoToNextView()
+                }else {
+                    self.displayErrorMessage(error: error as! LAError )
                 }
             })
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
-                print("Auth: Cancel activation of biometrics authentication")
-            })
-            
-            alert.addAction(enableAction)
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true, completion: nil)
+        }else {
+            //Touch ID is not available on Device, use password.
+            self.showAlertWith(title: "Error", message: (errorPointer?.localizedDescription)!)
         }
     }
+    
+    func displayErrorMessage(error:LAError) {
+        var message = ""
+        switch error.code {
+        case LAError.authenticationFailed:
+            message = "Authentication was not successful because the user failed to provide valid credentials."
+            break
+        case LAError.userCancel:
+            message = "Authentication was canceled by the user"
+            break
+        case LAError.userFallback:
+            message = "Authentication was canceled because the user tapped the fallback button"
+            break
+        case LAError.biometryNotEnrolled:
+            message = "Authentication could not start because Biometry has no enrolled fingers."
+        case LAError.passcodeNotSet:
+            message = "Passcode is not set on the device."
+            break
+        case LAError.systemCancel:
+            message = "Authentication was canceled by system"
+            break
+        default:
+            message = error.localizedDescription
+        }
+        
+        self.showAlertWith(title: "Authentication Failed", message: message)
+    }
+    
+    // SUCESS - Go to Next View
+    
+    func successGoToNextView() {
+        print("Auth: Successful regular authentication")
+        getLigands()
+        self.performSegue(withIdentifier: "showTableView", sender: self)
+    }
+    
     
     // MARK: Get ligands from .txt file
     
@@ -133,5 +106,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             destination.ligands = self.ligands
         }
     }
+}
 
+extension UIViewController {
+    @objc func showAlertWith(title:String, message:String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let actionButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(actionButton)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
