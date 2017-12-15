@@ -112,7 +112,33 @@ class DetailsViewController: UIViewController {
         }
     }
     
+    @IBAction func takeScreenshot(_ sender: Any) {
+        let shareController = SharingController()
+        if (shareController.takeScreenshot(viewSnap: proteinView, vc: self) == false) {
+            print ("Error")
+        }
+    }
 
+    @IBAction func showInfos(_ sender: Any) {
+        
+        if let li = self.ligand {
+
+            // Generate Alert (Modal)
+            let alert = UIAlertController(
+                title:"Somes informations!",
+                 message: li.getInfos(),
+                preferredStyle: UIAlertControllerStyle.actionSheet
+            )
+            
+            // Add action Cancel
+            alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.default, handler: { alertAction in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
