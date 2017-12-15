@@ -19,62 +19,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rb1-wg-ePV">
-                                <rect key="frame" x="151.5" y="307.5" width="72" height="72"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="72" id="Q6h-6b-v4S"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="oRp-6l-imC"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                <state key="normal" title="      " backgroundImage="ic_fingerprint"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5UE-c5-lRG">
+                                <rect key="frame" x="137.5" y="312" width="100" height="63"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <state key="normal" title="Login"/>
                                 <connections>
-                                    <action selector="touchFingerPrint:" destination="jS4-KT-LsA" eventType="touchUpInside" id="Nx6-3k-DSb"/>
+                                    <action selector="LogMe:" destination="jS4-KT-LsA" eventType="touchUpInside" id="CfI-30-pWh"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oTE-mz-qnM">
-                                <rect key="frame" x="94.5" y="228" width="186" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Hnq-Wc-J6w"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="186" id="P4D-Qy-Ezu"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vB-rE-eKu">
-                                <rect key="frame" x="166.5" y="267" width="42" height="30"/>
-                                <state key="normal" title="Log in"/>
-                                <connections>
-                                    <action selector="touchLogin:" destination="jS4-KT-LsA" eventType="touchUpInside" id="dtx-f1-iDo"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mRc-q8-aEn">
-                                <rect key="frame" x="94.5" y="190" width="186" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="LNi-Hh-Hjd"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="186" id="VXO-tn-8zr"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="continue" textContentType="username"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9vB-rE-eKu" firstAttribute="top" secondItem="oTE-mz-qnM" secondAttribute="bottom" constant="9" id="0Xt-3v-gS8"/>
-                            <constraint firstItem="Rb1-wg-ePV" firstAttribute="centerY" secondItem="GSW-Fv-Bns" secondAttribute="centerY" id="5d0-7o-pHW"/>
-                            <constraint firstItem="9vB-rE-eKu" firstAttribute="centerX" secondItem="GSW-Fv-Bns" secondAttribute="centerX" id="F8E-IA-Ogz"/>
-                            <constraint firstItem="Rb1-wg-ePV" firstAttribute="centerX" secondItem="GSW-Fv-Bns" secondAttribute="centerX" id="FZj-e9-Gvj"/>
-                            <constraint firstItem="Rb1-wg-ePV" firstAttribute="top" secondItem="9vB-rE-eKu" secondAttribute="bottom" constant="10.5" id="bUK-ZT-C5Q"/>
-                            <constraint firstItem="oTE-mz-qnM" firstAttribute="centerX" secondItem="GSW-Fv-Bns" secondAttribute="centerX" id="qiO-GE-aeI"/>
-                            <constraint firstItem="oTE-mz-qnM" firstAttribute="top" secondItem="mRc-q8-aEn" secondAttribute="bottom" constant="8" id="v6Y-kE-hJp"/>
-                            <constraint firstItem="mRc-q8-aEn" firstAttribute="centerX" secondItem="GSW-Fv-Bns" secondAttribute="centerX" id="zCE-1s-4G6"/>
+                            <constraint firstItem="5UE-c5-lRG" firstAttribute="centerX" secondItem="GSW-Fv-Bns" secondAttribute="centerX" id="PZc-ZJ-wbv"/>
+                            <constraint firstItem="5UE-c5-lRG" firstAttribute="centerY" secondItem="GSW-Fv-Bns" secondAttribute="centerY" id="pYl-GD-MD7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GSW-Fv-Bns"/>
                     </view>
                     <connections>
-                        <outlet property="password" destination="oTE-mz-qnM" id="mp2-Rr-fFZ"/>
-                        <outlet property="username" destination="mRc-q8-aEn" id="qbt-MJ-HHX"/>
                         <segue destination="8sU-f5-uob" kind="show" identifier="showTableView" id="UfR-xq-nNY"/>
                     </connections>
                 </viewController>
@@ -193,6 +154,5 @@
     </scenes>
     <resources>
         <image name="ic_done_48pt" width="48" height="48"/>
-        <image name="ic_fingerprint" width="24" height="24"/>
     </resources>
 </document>
