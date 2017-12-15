@@ -15,6 +15,13 @@ class TableViewController: UITableViewController {
     
     var searchController: UISearchController!
     
+    @IBAction func takeSnap(_ sender: Any) {
+        let shareController = SharingController()
+        if (shareController.takeScreenshot(viewSnap: self.view, vc: self) == false) {
+            print ("Error")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -103,7 +110,7 @@ class TableViewController: UITableViewController {
                 }
                 
             } else {
-                ("Download: no data reached")
+                print("Download: no data reached")
             }
         } else  {
             print("Download: URL not found")
@@ -198,3 +205,4 @@ extension TableViewController: UISearchResultsUpdating {
         return searchController.isActive && !searchBarIsEmpty()
     }
 }
+

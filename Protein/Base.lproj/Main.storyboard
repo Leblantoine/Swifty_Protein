@@ -128,14 +128,20 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Search Proteins" id="j0J-y2-6DG"/>
+                    <navigationItem key="navigationItem" title="Search Proteins" id="j0J-y2-6DG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="wz0-VH-UH4">
+                            <connections>
+                                <action selector="takeSnap:" destination="t8P-61-JvP" id="KnF-AV-eOR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="PBW-sV-2yv" kind="show" identifier="showDetails" id="ftj-Fo-fY8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QtN-Ht-jO0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-228" y="59.820089955022496"/>
+            <point key="canvasLocation" x="-103" y="60"/>
         </scene>
         <!--Details View Controller-->
         <scene sceneID="zGM-Eq-5Zo">
