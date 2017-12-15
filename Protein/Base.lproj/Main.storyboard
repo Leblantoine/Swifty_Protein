@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -89,13 +90,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Search Proteins" id="j0J-y2-6DG">
-                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="wz0-VH-UH4">
-                            <connections>
-                                <action selector="takeSnap:" destination="t8P-61-JvP" id="KnF-AV-eOR"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Search Proteins" id="j0J-y2-6DG"/>
                     <connections>
                         <segue destination="PBW-sV-2yv" kind="show" identifier="showDetails" id="ftj-Fo-fY8"/>
                     </connections>
@@ -161,6 +156,16 @@
                             <barButtonItem systemItem="play" id="Jwv-28-roX">
                                 <connections>
                                     <action selector="playPauseAction:" destination="PBW-sV-2yv" id="L9T-fd-Wop"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="organize" id="41i-ie-QbZ">
+                                <connections>
+                                    <action selector="showInfos:" destination="PBW-sV-2yv" id="BZC-RK-U5m"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="camera" id="U2r-H1-VCV">
+                                <connections>
+                                    <action selector="takeScreenshot:" destination="PBW-sV-2yv" id="685-au-wcT"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
