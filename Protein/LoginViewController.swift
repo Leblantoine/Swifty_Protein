@@ -109,7 +109,7 @@ class LoginViewController: UIViewController {
 }
 
 extension UIViewController {
-    @objc func showAlertWith(title:String, message:String) {
+    func showAlertWith(title:String, message:String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let actionButton = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(actionButton)
