@@ -168,8 +168,22 @@ func distance(between firstAtom: Atom, and secondAtom: Atom) -> Float {
 
     @IBAction func showInfos(_ sender: Any) {
         
-        if let li = self.ligand {
-
+        
+        // Generate Alert (Modal)
+        let alert = UIAlertController(
+            title:"Somes informations!",
+            message: ligand.getInfos(),
+            preferredStyle: UIAlertControllerStyle.actionSheet
+        )
+        
+        // Add action Cancel
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.default, handler: { alertAction in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

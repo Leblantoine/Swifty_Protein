@@ -99,7 +99,7 @@
             </objects>
             <point key="canvasLocation" x="-103" y="60"/>
         </scene>
-        <!--Details View Controller-->
+        <!--3D-->
         <scene sceneID="zGM-Eq-5Zo">
             <objects>
                 <viewController id="PBW-sV-2yv" customClass="DetailsViewController" customModule="Protein" customModuleProvider="target" sceneMemberID="viewController">
