@@ -104,7 +104,7 @@
             </objects>
             <point key="canvasLocation" x="-103" y="60"/>
         </scene>
-        <!--Details View Controller-->
+        <!--3D-->
         <scene sceneID="zGM-Eq-5Zo">
             <objects>
                 <viewController id="PBW-sV-2yv" customClass="DetailsViewController" customModule="Protein" customModuleProvider="target" sceneMemberID="viewController">
@@ -156,6 +156,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IRR-E7-yDB"/>
                     </view>
+                    <navigationItem key="navigationItem" title="3D" id="Foa-KK-cgd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="41i-ie-QbZ">
+                            <connections>
+                                <action selector="showInfos:" destination="PBW-sV-2yv" id="BZC-RK-U5m"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="atom" destination="DtY-rV-U81" id="R0g-ar-Fcm"/>
                         <outlet property="atomName" destination="1KM-6B-4Iv" id="M1F-tb-uVe"/>
