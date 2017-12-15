@@ -156,6 +156,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IRR-E7-yDB"/>
                     </view>
+                    <navigationItem key="navigationItem" title="3D" id="Foa-KK-cgd">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="play" id="Jwv-28-roX">
+                                <connections>
+                                    <action selector="playPauseAction:" destination="PBW-sV-2yv" id="L9T-fd-Wop"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="atom" destination="DtY-rV-U81" id="R0g-ar-Fcm"/>
                         <outlet property="atomName" destination="1KM-6B-4Iv" id="M1F-tb-uVe"/>
