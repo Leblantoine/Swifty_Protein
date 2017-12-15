@@ -26,7 +26,7 @@ struct Ligand {
         let n = "\n"
         var infos = n
         
-        infos = infos + "name:" + n + name + n
+        infos = infos + "name:" + n + name + n + fullname
         infos = infos + n
         infos = infos + "type:" + n + type + n
         infos = infos + n

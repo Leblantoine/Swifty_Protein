@@ -112,6 +112,13 @@ class DetailsViewController: UIViewController {
         }
     }
     
+    @IBAction func takeScreenshot(_ sender: Any) {
+        let shareController = SharingController()
+        if (shareController.takeScreenshot(viewSnap: proteinView, vc: self) == false) {
+            print ("Error")
+        }
+    }
+
     @IBAction func showInfos(_ sender: Any) {
         
         if let li = self.ligand {
