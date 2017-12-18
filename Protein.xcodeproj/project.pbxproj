@@ -15,7 +15,6 @@
 		126688251FDD32AE00B9DF51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 126688231FDD32AE00B9DF51 /* LaunchScreen.storyboard */; };
 		1266882D1FDD355B00B9DF51 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266882C1FDD355B00B9DF51 /* LoginViewController.swift */; };
 		1266882F1FDD4C1E00B9DF51 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1266882E1FDD4C1E00B9DF51 /* TableViewController.swift */; };
-		126688301FDD5ACB00B9DF51 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 126688261FDD32AE00B9DF51 /* Info.plist */; };
 		126688331FDD5B0A00B9DF51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 126688311FDD5B0A00B9DF51 /* Main.storyboard */; };
 		126688371FDD70E300B9DF51 /* Ligand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126688361FDD70E300B9DF51 /* Ligand.swift */; };
 		A727DC4D1FE271BE00CE6A8F /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = A727DC4C1FE271BE00CE6A8F /* ligands.txt */; };
@@ -147,7 +146,6 @@
 			files = (
 				126688251FDD32AE00B9DF51 /* LaunchScreen.storyboard in Resources */,
 				A727DC4D1FE271BE00CE6A8F /* ligands.txt in Resources */,
-				126688301FDD5ACB00B9DF51 /* Info.plist in Resources */,
 				126688331FDD5B0A00B9DF51 /* Main.storyboard in Resources */,
 				1240F6261FDED7CB00468E03 /* Assets.xcassets in Resources */,
 			);

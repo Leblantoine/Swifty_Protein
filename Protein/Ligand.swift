@@ -13,6 +13,7 @@ struct Ligand {
     var fullname = "NOT DEFINED"
     var type = "NOT DEFINED"
     var formula = "NOT DEFINED"
+    var weight = "NOT DEFINED"
     var isDownloaded = false
     
     var atoms = [Atom]()
@@ -26,18 +27,17 @@ struct Ligand {
         let n = "\n"
         var infos = n
         
-        infos = infos + "name:" + n + name + n + fullname
-        infos = infos + n
-        infos = infos + "type:" + n + type + n
-        infos = infos + n
-        infos = infos + "formula:" + n + formula + n
-        infos = infos + n
+        
+        infos = infos + "Name: \(name)" + n + "(\(fullname))" + n
+        infos = infos + "Type: \(type)" + n
+        infos = infos + "Formula: \(formula)" + n
+        infos = infos + "Weight: \(weight)"
 
         return infos;
     }
 
     func description() {
-        print("Ligand -- name: \(name) (\(fullname)), type: \(type), formula: \(formula)")
+        print("Ligand -- name: \(name) (\(fullname)), type: \(type), formula: \(formula), weight: \(weight)")
         for atom in atoms {
             print("\tAtom       -- name: \(atom.name), id: \(atom.id), x: \(atom.x), y: \(atom.y), z: \(atom.z)")
             for atomConnected in atom.connect {

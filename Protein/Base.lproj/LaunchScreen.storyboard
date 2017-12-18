@@ -18,8 +18,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchSreen" translatesAutoresizingMaskIntoConstraints="NO" id="WwV-Aq-V3n">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swifty Proteins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiu-Ae-jNE">
-                                <rect key="frame" x="103.5" y="328.5" width="169" height="31.5"/>
+                                <rect key="frame" x="103" y="117" width="169" height="31.5"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -27,15 +30,23 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="jiu-Ae-jNE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="CtL-rQ-uSS"/>
+                            <constraint firstItem="jiu-Ae-jNE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="97" id="0ss-p0-amD"/>
+                            <constraint firstItem="WwV-Aq-V3n" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Jrp-WN-P2V"/>
+                            <constraint firstItem="WwV-Aq-V3n" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="MiD-Mi-mIV"/>
                             <constraint firstItem="jiu-Ae-jNE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="OFc-mA-bnN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WwV-Aq-V3n" secondAttribute="trailing" id="ehy-mk-DKx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="WwV-Aq-V3n" secondAttribute="bottom" id="mR6-7j-YP2"/>
+                            <constraint firstItem="WwV-Aq-V3n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xBK-0l-t8d"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LaunchSreen" width="727" height="549"/>
+    </resources>
 </document>

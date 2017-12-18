@@ -116,17 +116,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1KM-6B-4Iv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1KM-6B-4Iv">
                                 <rect key="frame" x="69" y="78" width="45" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="v1k-0i-sVT">
-                                <rect key="frame" x="106" y="619" width="163" height="29"/>
+                                <rect key="frame" x="38" y="619" width="299" height="29"/>
                                 <segments>
                                     <segment title="Ball &amp; stick"/>
                                     <segment title="Balls"/>
+                                    <segment title="W/o hydrogen"/>
                                 </segments>
                                 <connections>
                                     <action selector="switched:" destination="PBW-sV-2yv" eventType="valueChanged" id="Raz-fL-eFL"/>
@@ -137,6 +138,7 @@
                         <constraints>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="centerX" secondItem="IRR-E7-yDB" secondAttribute="centerX" id="65r-9P-bCi"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="leading" secondItem="Ipu-WG-3ib" secondAttribute="leading" id="BBj-5i-gEE"/>
+                            <constraint firstItem="DtY-rV-U81" firstAttribute="leading" secondItem="Ipu-WG-3ib" secondAttribute="leading" constant="16" id="LMB-Fi-ON2"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="leading" secondItem="DtY-rV-U81" secondAttribute="trailing" constant="-61" id="QbU-Vt-P8m"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="bottom" secondItem="IRR-E7-yDB" secondAttribute="bottom" id="UxX-de-c16"/>
                             <constraint firstItem="IRR-E7-yDB" firstAttribute="trailing" secondItem="vKb-W2-8sp" secondAttribute="trailing" id="ZmE-NG-1Za"/>
@@ -146,18 +148,13 @@
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="leading" secondItem="IRR-E7-yDB" secondAttribute="leading" id="jLK-d6-2so"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="top" secondItem="1KM-6B-4Iv" secondAttribute="bottom" constant="-35" id="jw6-ZZ-dhW"/>
                             <constraint firstItem="v1k-0i-sVT" firstAttribute="centerX" secondItem="vKb-W2-8sp" secondAttribute="centerX" id="rK5-me-dK1"/>
-                            <constraint firstItem="1KM-6B-4Iv" firstAttribute="leading" secondItem="DtY-rV-U81" secondAttribute="trailing" constant="8" id="sSJ-3W-upv"/>
+                            <constraint firstItem="1KM-6B-4Iv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DtY-rV-U81" secondAttribute="trailing" constant="8" symbolic="YES" id="sSJ-3W-upv"/>
                             <constraint firstItem="vKb-W2-8sp" firstAttribute="top" secondItem="DtY-rV-U81" secondAttribute="bottom" constant="-35" id="shq-t0-HTj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IRR-E7-yDB"/>
                     </view>
                     <navigationItem key="navigationItem" title="3D" id="Foa-KK-cgd">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="play" id="Jwv-28-roX">
-                                <connections>
-                                    <action selector="playPauseAction:" destination="PBW-sV-2yv" id="L9T-fd-Wop"/>
-                                </connections>
-                            </barButtonItem>
                             <barButtonItem systemItem="organize" id="41i-ie-QbZ">
                                 <connections>
                                     <action selector="showInfos:" destination="PBW-sV-2yv" id="BZC-RK-U5m"/>
@@ -166,6 +163,11 @@
                             <barButtonItem systemItem="camera" id="U2r-H1-VCV">
                                 <connections>
                                     <action selector="takeScreenshot:" destination="PBW-sV-2yv" id="685-au-wcT"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="play" id="Jwv-28-roX">
+                                <connections>
+                                    <action selector="playPauseAction:" destination="PBW-sV-2yv" id="L9T-fd-Wop"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>

@@ -90,11 +90,7 @@ class TableViewController: UITableViewController {
         guard let url = URL(string: "https://files.rcsb.org/ligands/download/\(name).cif"), let data = try? String(contentsOf: url, encoding: .utf8)
         else {
             print("Download: no data reached")
-            
-            let alert = UIAlertController(title: "Download failed", message: "Ligand '\(name)' hos not been downloaded", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+            showAlertWith(title: "Download failed", message: "Ligand '\(name)' has not been downloaded")
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
             return
@@ -131,6 +127,8 @@ class TableViewController: UITableViewController {
                     ligand.type = line.components(separatedBy: " ").filter{ !$0.isEmpty }[1]
                 } else if line.contains("_chem_comp.formula ") {
                     ligand.formula = line.components(separatedBy: " ").filter{ !$0.isEmpty }.dropFirst().joined(separator: " ")
+                } else if line.contains("_chem_comp.formula_weight") {
+                    ligand.weight = line.components(separatedBy: " ").filter{ !$0.isEmpty }[1]
                 }
             } else if hash == 2 {
                 if line.contains(ligand.name) {
@@ -169,8 +167,10 @@ class TableViewController: UITableViewController {
             if let index = sender as? IndexPath {
                 if isFiltering() {
                     destination.ligand = filteredLigands[index.row]
+                    destination.navigationItem.title = filteredLigands[index.row].name
                 } else {
                     destination.ligand = ligands[index.row]
+                    destination.navigationItem.title = ligands[index.row].name
                 }
             }
         }

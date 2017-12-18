@@ -15,6 +15,8 @@ class DetailsViewController: UIViewController {
     var scene: SCNScene!
     var cameraNode: SCNNode!
     
+    var currentModel = "BallStick"
+    
     @IBOutlet weak var proteinView: SCNView!
     @IBOutlet weak var atom: UILabel!
     @IBOutlet weak var atomName: UILabel!
@@ -22,9 +24,11 @@ class DetailsViewController: UIViewController {
     @IBAction func playPauseAction(_ sender: UIBarButtonItem) {
         if scene.rootNode.actionKeys.contains("rotate") {
             scene.rootNode.removeAction(forKey: "rotate")
+            self.navigationItem.rightBarButtonItems![2] = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.play, target: self, action: #selector(DetailsViewController.playPauseAction(_:)))
         } else {
             let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 20, z: 0, duration: 30))
             scene.rootNode.runAction(rotateAction, forKey: "rotate")
+            self.navigationItem.rightBarButtonItems![2] = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.pause, target: self, action: #selector(DetailsViewController.playPauseAction(_:)))
 
         }
     }
@@ -32,9 +36,15 @@ class DetailsViewController: UIViewController {
     @IBAction func switched(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            createBallStickModel()
+            createBallStickModel(withHydrogen: true)
         case 1:
-            createBallsModel()
+            createBallsModel(withHydrogen: true)
+        case 2:
+            if currentModel == "BallStick" {
+                createBallStickModel(withHydrogen: false)
+            } else {
+                createBallsModel(withHydrogen: false)
+            }
         default:
             break
         }
@@ -56,36 +66,44 @@ class DetailsViewController: UIViewController {
         
         atom.isHidden = true
         atomName.isHidden = true
-        createBallStickModel()
+        createBallStickModel(withHydrogen: true)
         // Do any additional setup after loading the view.
     }
     
-    func createBallsModel() {
+    func createBallsModel(withHydrogen: Bool) {
         clearModel()
+        currentModel = "Balls"
         for atom in ligand.atoms {
-            let object: SCNGeometry = SCNSphere(radius: 1)
-            object.firstMaterial?.diffuse.contents = atom.getColor()
-            let geometryNode = SCNNode(geometry: object)
-            geometryNode.position = SCNVector3(atom.x, atom.y, atom.z)
-            geometryNode.name = atom.name
-            scene.rootNode.addChildNode(geometryNode)
+            if withHydrogen || (!withHydrogen && atom.name != "H") {
+                let object: SCNGeometry = SCNSphere(radius: 1)
+                object.firstMaterial?.diffuse.contents = atom.getColor()
+                let geometryNode = SCNNode(geometry: object)
+                geometryNode.position = SCNVector3(atom.x, atom.y, atom.z)
+                geometryNode.name = atom.name
+                scene.rootNode.addChildNode(geometryNode)
+            }
         }
     }
     
-    func createBallStickModel() {
+    func createBallStickModel(withHydrogen: Bool) {
         clearModel()
+        currentModel = "BallStick"
         for atom in ligand.atoms {
             // Create atoms
-            let object: SCNGeometry = SCNSphere(radius: 0.4)
-            object.firstMaterial?.diffuse.contents = atom.getColor()
-            let geometryNode = SCNNode(geometry: object)
-            geometryNode.position = SCNVector3(atom.x, atom.y, atom.z)
-            geometryNode.name = atom.name
-            scene.rootNode.addChildNode(geometryNode)
-            // Create sticks
-            
-            for connectedAtom in atom.connect {
-                createStick(between: atom, and: connectedAtom)
+            if withHydrogen || (!withHydrogen && atom.name != "H") {
+                let object: SCNGeometry = SCNSphere(radius: 0.4)
+                object.firstMaterial?.diffuse.contents = atom.getColor()
+                let geometryNode = SCNNode(geometry: object)
+                geometryNode.position = SCNVector3(atom.x, atom.y, atom.z)
+                geometryNode.name = atom.name
+                scene.rootNode.addChildNode(geometryNode)
+                // Create sticks
+                
+                for connectedAtom in atom.connect {
+                    if withHydrogen || (!withHydrogen && connectedAtom.name != "H") {
+                        createStick(between: atom, and: connectedAtom)
+                    }
+                }
             }
         }
     }
@@ -151,8 +169,8 @@ func distance(between firstAtom: Atom, and secondAtom: Atom) -> Float {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: proteinView)
-            if let hitObject = proteinView.hitTest(location, options: nil).first, hitObject.node.name != "" {
-                atomName.text = hitObject.node.name
+            if let hitObject = proteinView.hitTest(location, options: nil).first, let name = hitObject.node.name {
+                atomName.text = name
                 atom.isHidden = false
                 atomName.isHidden = false
             }
