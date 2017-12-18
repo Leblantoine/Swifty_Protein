@@ -114,13 +114,17 @@ class TableViewController: UITableViewController {
     func parseLigand(file: String, for name: String) -> Ligand {
         var ligand = Ligand(fromName: name)
         let lines = file.components(separatedBy: "\n")
+        var onlyOneAtom = Atom(id: "NOT DEFINED", name: "NOT DEFINED", x: 0.0, y: 0.0, z: 0.0)
         var hash = 0
+        var loop = false
         
         for line in lines {
             if line.contains("#") {
                 hash += 1
-            }
-            if hash == 1 {
+                loop = false
+            } else if line.contains("loop_") {
+                loop = true
+            } else if hash == 1 {
                 if line.contains("_chem_comp.name") {
                     ligand.fullname = line.components(separatedBy: " ").filter{ !$0.isEmpty }.dropFirst().joined(separator: " ")
                 } else if line.contains("_chem_comp.type") {
@@ -131,16 +135,28 @@ class TableViewController: UITableViewController {
                     ligand.weight = line.components(separatedBy: " ").filter{ !$0.isEmpty }[1]
                 }
             } else if hash == 2 {
-                if line.contains(ligand.name) {
-                    let components = line.components(separatedBy: " ").filter{ !$0.isEmpty }
-                    let id = components[1]
-                    let name = components[3]
-                    if let x = Float(components[12]), let y = Float(components[13]), let z = Float(components[14]) {
-                        let atom = Atom(id: id, name: name, x: x, y: y, z: z)
-                        ligand.atoms.append(atom)
+                if loop == true {
+                    if line.contains(ligand.name) {
+                        let components = line.components(separatedBy: " ").filter{ !$0.isEmpty }
+                        let id = components[1]
+                        let name = components[3]
+                        if let x = Float(components[12]), let y = Float(components[13]), let z = Float(components[14]) {
+                            let atom = Atom(id: id, name: name, x: x, y: y, z: z)
+                            ligand.atoms.append(atom)
+                        }
                     }
+                } else {
+                    if line.contains("_chem_comp_atom.atom_id") {
+                        onlyOneAtom.id = line.components(separatedBy: " ").filter{ !$0.isEmpty }[1]
+                    } else if line.contains("_chem_comp_atom.type_symbol") {
+                        onlyOneAtom.name = line.components(separatedBy: " ").filter{ !$0.isEmpty }[1]
+                    }
+                    if onlyOneAtom.name != "NOT DEFINED", onlyOneAtom.id != "NOT DEFINED" {
+                        ligand.atoms.append(onlyOneAtom)
+                    }
+    
                 }
-            } else if hash == 3 {
+            } else if hash == 3, ligand.atoms.count > 1 {
                 if line.contains(ligand.name) {
                     let components = line.components(separatedBy: " ").filter{ !$0.isEmpty }
                     if let atomIndex1 = ligand.atoms.index(where: {$0.id == components[1]}),

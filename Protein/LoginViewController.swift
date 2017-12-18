@@ -90,7 +90,9 @@ class LoginViewController: UIViewController {
     func getLigands() {
         if let path = Bundle.main.path(forResource: "ligands", ofType: "txt"), let data = try? String(contentsOfFile: path) {
             for line in data.components(separatedBy: .newlines) {
-                ligands.append(Ligand(fromName: line))
+                if !line.isEmpty {
+                    ligands.append(Ligand(fromName: line))
+                }
             }
         } else {
             print("Ligands setup: Cannot reach file ligands.txt")
